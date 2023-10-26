@@ -34,7 +34,7 @@
             <artifactId>activiti-spring-boot-starter</artifactId>
             <version>7.1.0.M3.1</version>
         </dependency>
-        <!--解决activiti坐标导致的security注入问题-->
+        <!--解决activity坐标导致的security注入问题-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
