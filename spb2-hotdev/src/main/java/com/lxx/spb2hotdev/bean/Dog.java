@@ -12,4 +12,6 @@ public class Dog {
      * 年龄
      */
     private Integer age;
+
+    private Cat cat;
 }
