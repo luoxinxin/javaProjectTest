@@ -16,7 +16,7 @@ public class CreateWordDocument {
 
             // 创建一个新表格，指定表格列数
             int numRows = 5; // 例如，创建5行
-            int numCols = 2; // 2列
+            int numCols = 3; // 3列
             XWPFTable table = document.createTable(numRows, numCols);
 
             // 循环逐行添加数据
