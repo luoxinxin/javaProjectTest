@@ -36,7 +36,7 @@ public class TestMysqlController {
     @RequestMapping("/testRedirect")
     public String testRedirect(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("hello");
-        response.sendRedirect("www.baidu.com");
+        //response.sendRedirect("www.baidu.com");
         System.out.println("world");
         return "redirect:www.baidu.com";
     }
