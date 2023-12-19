@@ -1,10 +1,10 @@
-package com.lxx.spb2hotdev;
+package com.lxx.bill;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Spb2HotdevApplicationTests {
+class LxxBillApplicationTests {
 
     @Test
     void contextLoads() {
