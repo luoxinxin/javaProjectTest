@@ -1,12 +1,8 @@
 package com.luoxinxin.test;
 
-import org.springframework.aop.framework.DefaultAopProxyFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.*;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.beans.factory.support.DefaultSingletonBeanRegistry;
-import org.springframework.cache.transaction.TransactionAwareCacheDecorator;
-import org.springframework.web.servlet.DispatcherServlet;
 
 public class FactoryBeanTest implements FactoryBean, BeanNameAware, BeanFactoryAware, BeanPostProcessor, DisposableBean {
 

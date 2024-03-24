@@ -2,7 +2,6 @@ package com.lxx.bill.dao.bank;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.NumberUtil;
-import cn.hutool.core.util.StrUtil;
 import com.lxx.bill.bean.excel.MerchantsBillStreamUploadData;
 import com.lxx.bill.constant.DictTypeConstants;
 import com.lxx.bill.domain.BillStream;
@@ -11,7 +10,6 @@ import com.lxx.bill.service.CommonDictTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -35,7 +33,7 @@ public class MerchantsUploadDAO {
             BillStream billStream = new BillStream();
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             billStream.setTradeTime(Date.from(LocalDateTime.parse(v.getTradeTime()+" 00:00:00", dateTimeFormatter).atZone(ZoneId.systemDefault()).toInstant()));
-            billStream.setTradeType(commonDictTypeService.commonDictType(DictTypeConstants.DICT_TYPE_TRADE_TYPE,v.getTradeType(),null));
+            billStream.setTradeType(commonDictTypeService.insertCommonDictType(DictTypeConstants.DICT_TYPE_TRADE_TYPE,v.getTradeType(),DictTypeConstants.DICT_TYPE_DICT_FROM_5, null));
             billStream.setTradeObject(v.getTradeObject());
             billStream.setTotalAmount(NumberUtil.toBigDecimal(totalAmountHandle(v.getTotalAmount())));
             billStream.setBalance(NumberUtil.toBigDecimal(v.getBalance()));
@@ -44,7 +42,7 @@ public class MerchantsUploadDAO {
             billStream.setTradeStatus("交易成功");
             billStream.setTradeNo(IdUtil.fastSimpleUUID());
             billStream.setStreamSource(commonDictTypeService.getStreamSource("招商银行"));
-            billStream.setUserId(1000L);
+            billStream.setUserId(0L);
             billStream.setCreateTime(new Date());
             billStream.setUpdateTime(new Date());
             return billStream;
@@ -64,13 +62,13 @@ public class MerchantsUploadDAO {
 
 
     public String inExTypeHandle(String totalAmount) {
-        String type = "";
+        String typeName = "";
         if (totalAmount.startsWith("-")) {
-            type = commonDictTypeService.getINEXType("支出");
+            typeName = DictTypeConstants.DICT_TYPE_IN_EX_TYPE_2;
         }else{
-            type = commonDictTypeService.getINEXType("收入");
+            typeName = DictTypeConstants.DICT_TYPE_IN_EX_TYPE_1;
         }
-        return type;
+        return commonDictTypeService.getDictTypeCodeByName(DictTypeConstants.DICT_TYPE_IN_EX_TYPE, typeName, null);
     }
 
     public static void main(String[] args) {

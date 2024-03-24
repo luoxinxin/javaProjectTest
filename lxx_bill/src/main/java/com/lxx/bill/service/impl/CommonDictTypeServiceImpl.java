@@ -33,25 +33,28 @@ public class CommonDictTypeServiceImpl extends ServiceImpl<CommonDictTypeMapper,
     private RedisCache redisCache;
 
     private static final String COMMON_REDIS_KEY_PREFIX = "Common_Dict_Type:";
+    private static final String CODE_BY_NAME = "code_by_name:";
+    private static final String NAME_BY_CODE = "name_by_code:";
 
     /**
      * 通用字典
      * @param dictType
      * @param dictName
+     * @param dictFrom
      * @param userId
      * @return
      */
-    public String commonDictType(String dictType, String dictName, Long userId) {
+    public String insertCommonDictType(String dictType, String dictName, String dictFrom, Long userId) {
         if (userId == null) {
             userId = 0L;
         }
-        String key = COMMON_REDIS_KEY_PREFIX.concat(dictType).concat(":").concat(String.valueOf(userId));
+        String key = COMMON_REDIS_KEY_PREFIX.concat(CODE_BY_NAME).concat(dictType).concat(":").concat(String.valueOf(userId));
         Map<String, Object> cacheMap = redisCache.getCacheMap(key);
         if(CollectionUtil.isEmpty(cacheMap)){
             QueryWrapper<CommonDictType> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("user_id", userId).eq("dict_type", dictType);
             this.list(queryWrapper).forEach(v -> {
-                cacheMap.put(v.getDictName(), v.getId());
+                cacheMap.put(v.getDictName(), v.getDictCode());
             });
             redisCache.setCacheMap(key, cacheMap);
             redisCache.expire(key, 24*60*60);
@@ -68,6 +71,7 @@ public class CommonDictTypeServiceImpl extends ServiceImpl<CommonDictTypeMapper,
             commonDictType.setCreateTime(new Date());
             commonDictType.setUpdateTime(new Date());
             commonDictType.setUserId(userId);
+            commonDictType.setDictFrom(dictFrom);
             this.save(commonDictType);
             cacheMap.put(dictName, dictCode);
             redisCache.setCacheMap(key, cacheMap);
@@ -92,21 +96,88 @@ public class CommonDictTypeServiceImpl extends ServiceImpl<CommonDictTypeMapper,
         return null;
     }
 
-    /**
-     * 获取流水来源字典
-     * @param dictName
-     * @return
-     */
-    public String getINEXType(String dictName){
-        QueryWrapper<CommonDictType> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("dict_type", DictTypeConstants.DICT_TYPE_IN_EX_TYPE)
-                .eq("dict_name", dictName);
-        List<CommonDictType> list = list(queryWrapper);
-        if(!list.isEmpty()){
-            return list.get(0).getDictCode();
+
+
+
+    @Override
+    public Map<String, Object> getDictTypeCodeMapByName(String dictType, Long userId) {
+        if (userId == null) {
+            userId = 0L;
         }
-        return null;
+        String key = COMMON_REDIS_KEY_PREFIX.concat(CODE_BY_NAME).concat(dictType).concat(":").concat(String.valueOf(userId));
+        Map<String, Object> cacheMap = redisCache.getCacheMap(key);
+        if(CollectionUtil.isEmpty(cacheMap)){
+            QueryWrapper<CommonDictType> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("user_id", userId).eq("dict_type", dictType);
+            this.list(queryWrapper).forEach(v -> {
+                cacheMap.put(v.getDictName(), v.getDictCode());
+            });
+            redisCache.setCacheMap(key, cacheMap);
+            redisCache.expire(key, 24*60*60);
+        }
+        return cacheMap;
     }
+
+    @Override
+    public Map<String, Object> getDictTypeNameMapByCode(String dictType, Long userId) {
+        if (userId == null) {
+            userId = 0L;
+        }
+        String key = COMMON_REDIS_KEY_PREFIX.concat(NAME_BY_CODE).concat(dictType).concat(":").concat(String.valueOf(userId));
+        Map<String, Object> cacheMap = redisCache.getCacheMap(key);
+        if(CollectionUtil.isEmpty(cacheMap)){
+            QueryWrapper<CommonDictType> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("user_id", userId).eq("dict_type", dictType);
+            this.list(queryWrapper).forEach(v -> {
+                cacheMap.put(v.getDictCode(), v.getDictName());
+            });
+            redisCache.setCacheMap(key, cacheMap);
+            redisCache.expire(key, 24*60*60);
+        }
+        return cacheMap;
+    }
+
+
+    @Override
+    public String getDictTypeCodeByName(String dictType, String typeName, Long userId) {
+        if (userId == null) {
+            userId = 0L;
+        }
+        String key = COMMON_REDIS_KEY_PREFIX.concat(CODE_BY_NAME).concat(dictType).concat(":").concat(String.valueOf(userId));
+        Map<String, Object> cacheMap = redisCache.getCacheMap(key);
+        if(CollectionUtil.isEmpty(cacheMap)){
+            QueryWrapper<CommonDictType> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("user_id", userId).eq("dict_type", dictType);
+            this.list(queryWrapper).forEach(v -> {
+                cacheMap.put(v.getDictName(), v.getDictCode());
+            });
+            redisCache.setCacheMap(key, cacheMap);
+            redisCache.expire(key, 24*60*60);
+        }
+        return (String)cacheMap.get(typeName);
+
+    }
+
+    @Override
+    public String getDictTypeNameByCode(String dictType, String typeCode, Long userId) {
+        if (userId == null) {
+            userId = 0L;
+        }
+        String key = COMMON_REDIS_KEY_PREFIX.concat(NAME_BY_CODE).concat(dictType).concat(":").concat(String.valueOf(userId));
+        Map<String, Object> cacheMap = redisCache.getCacheMap(key);
+        if(CollectionUtil.isEmpty(cacheMap)){
+            QueryWrapper<CommonDictType> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("user_id", userId).eq("dict_type", dictType);
+            this.list(queryWrapper).forEach(v -> {
+                cacheMap.put(v.getDictCode(), v.getDictName());
+            });
+            redisCache.setCacheMap(key, cacheMap);
+            redisCache.expire(key, 24*60*60);
+        }
+        return (String) cacheMap.get(typeCode);
+    }
+
+
 }
 
 

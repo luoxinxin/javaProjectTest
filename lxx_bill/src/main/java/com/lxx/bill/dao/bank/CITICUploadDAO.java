@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,7 +37,7 @@ public class CITICUploadDAO {
             BillStream billStream = new BillStream();
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd HH:mm:ss");
             billStream.setTradeTime(Date.from(LocalDateTime.parse(v.getTradeTime() + " 00:00:00", dateTimeFormatter).atZone(ZoneId.systemDefault()).toInstant()));
-            billStream.setTradeType(commonDictTypeService.commonDictType(DictTypeConstants.DICT_TYPE_TRADE_TYPE,v.getTradeType(),null));
+            billStream.setTradeType(commonDictTypeService.insertCommonDictType(DictTypeConstants.DICT_TYPE_TRADE_TYPE,v.getTradeType(),DictTypeConstants.DICT_TYPE_DICT_FROM_6, null));
             billStream.setTradeObject(v.getTradeObject());
             billStream.setTotalAmount(NumberUtil.toBigDecimal(totalAmountHandle(v.getTotalAmount(), v.getTotalAmount1())));
             billStream.setInExType(inExTypeHandle(v.getTotalAmount(), v.getTotalAmount1()));
@@ -47,7 +46,7 @@ public class CITICUploadDAO {
             billStream.setTradeNo(IdUtil.fastSimpleUUID());
             billStream.setNote(v.getNote());
             billStream.setStreamSource(commonDictTypeService.getStreamSource("中信银行"));
-            billStream.setUserId(1000L);
+            billStream.setUserId(0L);
             billStream.setCreateTime(new Date());
             billStream.setUpdateTime(new Date());
             return billStream;
@@ -68,14 +67,14 @@ public class CITICUploadDAO {
         }
     }
 
-    public static String inExTypeHandle(String totalAmount, String totalAmount1) {
+    public String inExTypeHandle(String totalAmount, String totalAmount1) {
+        String typeName = "";
         if (StrUtil.isNotEmpty(totalAmount)) {
-            return "收入";
-        } else if(StrUtil.isNotEmpty(totalAmount1)){
-            return "支出";
-        }else{
-            return null;
+            typeName = DictTypeConstants.DICT_TYPE_IN_EX_TYPE_1;
+        }else if(StrUtil.isNotEmpty(totalAmount1)){
+            typeName = DictTypeConstants.DICT_TYPE_IN_EX_TYPE_2;
         }
+        return commonDictTypeService.getDictTypeCodeByName(DictTypeConstants.DICT_TYPE_IN_EX_TYPE, typeName, null);
     }
 
 

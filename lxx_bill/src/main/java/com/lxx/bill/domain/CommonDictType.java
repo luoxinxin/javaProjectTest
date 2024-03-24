@@ -42,6 +42,11 @@ public class CommonDictType implements Serializable {
     private String dictName;
 
     /**
+     * 字典来源
+     */
+    private String dictFrom;
+
+    /**
      * 状态 0-异常 1-正常
      */
     private Long status;

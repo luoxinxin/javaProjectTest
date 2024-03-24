@@ -6,55 +6,65 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * @Description: ArrayList去重
+ * @Version: 1.0
+ **/
 public class ArrayListDuplicateRemoval {
-    List<String> stringList = new ArrayList<>();
-    public Set<String> duplicateRemoval1(List<String> stringList){
+
+    private List<String> createList() {
+        List<String> stringList = new ArrayList<>();
         stringList.add("hello1");
         stringList.add("hello2");
         stringList.add("hello3");
         stringList.add("hello3");
         stringList.add("hello4");
         stringList.add("hello5");
-        Set<String> stringSet = new HashSet<>(stringList);
+        return stringList;
+    }
+
+    /**
+     * 利用set将list去重
+     * @return
+     */
+    public Set<String> duplicateRemoval1(){
+        List<String> list = createList();
+        Set<String> stringSet = new HashSet<>(list);
         stringSet.stream().forEach(string-> System.out.println(string));
         return stringSet;
     }
 
-    public Set<String> duplicateRemoval2(List<String> stringList){
-        stringList.add("hello1");
-        stringList.add("hello2");
-        stringList.add("hello3");
-        stringList.add("hello3");
-        stringList.add("hello4");
-        stringList.add("hello5");
+    /**
+     * 利用set将list去重
+     * @return
+     */
+    public Set<String> duplicateRemoval2(){
+        List<String> list = createList();
         Set<String> stringSet = new HashSet<>();
-        stringSet.addAll(stringList);
+        stringSet.addAll(list);
         stringSet.stream().forEach(string-> System.out.println(string));
         return stringSet;
     }
 
-    public List<String> duplicateRemoval3(List<String> stringList){
-        stringList.add("hello1");
-        stringList.add("hello2");
-        stringList.add("hello3");
-        stringList.add("hello3");
-        stringList.add("hello4");
-        stringList.add("hello5");
-        List<String> newString = stringList.stream().distinct().collect(Collectors.toList());
+    /**
+     * 利用stream流将list去重 distinct
+     * @return
+     */
+    public List<String> duplicateRemoval3(){
+        List<String> list = createList();
+        List<String> newString = list.stream().distinct().collect(Collectors.toList());
         newString.stream().forEach(string -> System.out.println(string));
         return newString;
     }
 
-    public List<String> duplicateRemoval4(List<String> stringList){
-        stringList.add("hello1");
-        stringList.add("hello2");
-        stringList.add("hello3");
-        stringList.add("hello3");
-        stringList.add("hello4");
-        stringList.add("hello5");
+    /**
+     * 利用for循环将list去重
+     * @return
+     */
+    public List<String> duplicateRemoval4(){
+        List<String> stringList = createList();
         List<String> stringListTmp = new ArrayList<>();
         for (int i = 0; i < stringList.size(); i++) {
-            String temp = stringList.get(i);
             if (i == (stringList.lastIndexOf(stringList.get(i)))) {
                 stringListTmp.add(stringList.get(i));
             }
@@ -64,11 +74,10 @@ public class ArrayListDuplicateRemoval {
     }
 
     public static void main(String[] args) {
-        List<String> stringList = new ArrayList<>();
         ArrayListDuplicateRemoval arrayListDuplicateRemoval = new ArrayListDuplicateRemoval();
-        //arrayListDuplicateRemoval.duplicateRemoval1(stringList);
-        //arrayListDuplicateRemoval.duplicateRemoval2(stringList);
-        //arrayListDuplicateRemoval.duplicateRemoval3(stringList);
-        arrayListDuplicateRemoval.duplicateRemoval4(stringList);
+        arrayListDuplicateRemoval.duplicateRemoval1();
+        arrayListDuplicateRemoval.duplicateRemoval2();
+        arrayListDuplicateRemoval.duplicateRemoval3();
+        arrayListDuplicateRemoval.duplicateRemoval4();
     }
 }

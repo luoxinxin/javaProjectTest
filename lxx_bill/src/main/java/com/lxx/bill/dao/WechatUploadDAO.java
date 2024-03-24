@@ -37,19 +37,19 @@ public class WechatUploadDAO {
             BillStream billStream = new BillStream();
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
             billStream.setTradeTime(Date.from(LocalDateTime.parse(timeHandle(v.getTradeTime()), dateTimeFormatter).atZone(ZoneId.systemDefault()).toInstant()));
-            billStream.setTradeType(commonDictTypeService.commonDictType(DictTypeConstants.DICT_TYPE_TRADE_TYPE,v.getTradeType(),null));
+            billStream.setTradeType(commonDictTypeService.insertCommonDictType(DictTypeConstants.DICT_TYPE_TRADE_TYPE,v.getTradeType(),DictTypeConstants.DICT_TYPE_DICT_FROM_2, null));
             billStream.setTradeObject(v.getTradeObject());
             billStream.setObjectNo(v.getObjectNo());
             billStream.setGoodsDescription(v.getGoodsDescription());
             billStream.setTotalAmount(NumberUtil.toBigDecimal(totalAmountHandle(v.getTotalAmount())));
-            billStream.setInExType(commonDictTypeService.commonDictType(DictTypeConstants.DICT_TYPE_IN_EX_TYPE,v.getInExType(),null));
-            billStream.setInExWay((inExTypeHandle(v.getInExWay(), 1000L, DictTypeConstants.DICT_TYPE_IN_EX_WAY)));
-            billStream.setTradeStatus(commonDictTypeService.commonDictType(DictTypeConstants.DICT_TYPE_TRADE_STATUS, v.getTradeStatus(), null));
+            billStream.setInExType(commonDictTypeService.insertCommonDictType(DictTypeConstants.DICT_TYPE_IN_EX_TYPE,v.getInExType(), null,null));
+            billStream.setInExWay((inExTypeHandle(v.getInExWay(), 0L, DictTypeConstants.DICT_TYPE_IN_EX_WAY)));
+            billStream.setTradeStatus(commonDictTypeService.insertCommonDictType(DictTypeConstants.DICT_TYPE_TRADE_STATUS, v.getTradeStatus(), null, null));
             billStream.setTradeNo(v.getTradeNo());
             billStream.setMerchantOrderNo(v.getMerchantOrderNo());
             billStream.setNote(v.getNote());
             billStream.setStreamSource(commonDictTypeService.getStreamSource("微信"));
-            billStream.setUserId(1000L);
+            billStream.setUserId(0L);
             billStream.setCreateTime(new Date());
             billStream.setUpdateTime(new Date());
             return billStream;
@@ -85,7 +85,7 @@ public class WechatUploadDAO {
         StringBuilder sb = new StringBuilder();
         List<String> list = Arrays.asList(inExType.split("&"));
         list.forEach(v -> {
-            String s = commonDictTypeService.commonDictType(dictType, v, userId);
+            String s = commonDictTypeService.insertCommonDictType(dictType, v, DictTypeConstants.DICT_TYPE_DICT_FROM_2, userId);
             sb.append(s).append("&");
         });
         if (sb.length() > 0 && sb.lastIndexOf("&") == sb.length()-1) {

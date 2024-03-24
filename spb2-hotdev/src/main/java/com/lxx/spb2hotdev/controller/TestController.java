@@ -1,18 +1,21 @@
 package com.lxx.spb2hotdev.controller;
 
 
+import com.lxx.spb2hotdev.annotation.PreventDuplicateSubmit;
 import com.lxx.spb2hotdev.bean.Cat;
 import com.lxx.spb2hotdev.bean.Dog;
 import com.lxx.spb2hotdev.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.*;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -23,12 +26,28 @@ import java.util.regex.Pattern;
 @RestController
 public class TestController {
 
+    public void hello10(){
+        System.out.printf("sss");
+    }
+
+    private void hello11(){
+        System.out.printf("sss");
+    }
+    protected void hello12(){
+        System.out.printf("sss");
+    }
+
+     void hello13(){
+         System.out.printf("sss");
+    }
+
     @Autowired
     private HelloService helloService;
 
-    @RequestMapping("/test")
-    public String hello(){
-        return "hello12343243";
+    @PreventDuplicateSubmit()
+    @PostMapping("/test")
+    public String hello(@Valid @RequestBody Cat cat){
+        return "1";
     }
 
     @RequestMapping("/test1")
@@ -40,6 +59,7 @@ public class TestController {
     }
 
     @RequestMapping("/test2")
+    @Transactional
     public Map<String, Object> hello2(){
         HashMap<String, Object> map = new HashMap<>();
         map.put("name", "hello");
@@ -67,6 +87,38 @@ public class TestController {
         helloService.hello(new Cat());
         return "hello12343243";
     }
+
+    @RequestMapping("/thread")
+    public String thread(){
+        // 创建并启动两个线程
+        Thread thread1 = new Thread(new MultiThreadExample.Task("Thread 1"));
+        Thread thread2 = new Thread(new MultiThreadExample.Task("Thread 2"));
+        thread1.start();
+        thread2.start();
+        return "hello12343243";
+    }
+
+    @RequestMapping("/requestTest")
+    public String requestTest(HttpServletRequest request){
+        Object obj = new Object();
+        String clientTimeHeaderValue = request.getHeader("X-Client-Time");
+        return clientTimeHeaderValue;
+    }
+
+//    public String requestHolder(){
+//        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+//        HttpServletRequest httpServletRequest = (HttpServletRequest) requestAttributes.resolveReference(RequestAttributes.REFERENCE_REQUEST);
+//
+//
+//
+//        return requestAttributes
+//    }
+
+
+
+
+
+
 
     public static String getFieldComment(Field field) {
         // 获取字段的块注释

@@ -3,6 +3,8 @@ package com.lxx.bill.service;
 import com.lxx.bill.domain.CommonDictType;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.Map;
+
 /**
 * @author xinsilinwang
 * @description 针对表【common_dict_type(通用字典)】的数据库操作Service
@@ -10,9 +12,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface CommonDictTypeService extends IService<CommonDictType> {
 
-    String commonDictType(String dictType, String dictName, Long userId);
+    String insertCommonDictType(String dictType, String dictName, String dictFrom, Long userId);
 
     String getStreamSource(String dictName);
 
-    String getINEXType(String dictName);
+    Map<String, Object> getDictTypeCodeMapByName(String dictType, Long userId);
+    String getDictTypeCodeByName(String dictType, String typeName, Long userId);
+    Map<String, Object> getDictTypeNameMapByCode(String dictType, Long userId);
+    String getDictTypeNameByCode(String dictType, String typeCode, Long userId);
 }

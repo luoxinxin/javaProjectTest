@@ -1,16 +1,12 @@
 package com.luoxinxin.test;
 
-//public class StringTest{
-//    public static void main(String[] a){
-//        String s1 = "test string";
-//        String s2 = "test string";
-//        if(s1 == s2){
-//            System.out.println("same");
-//        }else{
-//            System.out.println("different");
-//        }
-//    }
-//}
+ class StringTest{
+    public static void main(String[] a){
+//        stringTest1();
+    }
+
+
+ }
 
 //public class Question1{
 //    static class Decrementer{
@@ -59,7 +55,4 @@ public class Xor{
         Inner ox = new Inner();
         ox.iMethod(5);
     }
-
-
-
 }

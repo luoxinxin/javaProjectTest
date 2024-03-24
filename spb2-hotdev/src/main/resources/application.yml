@@ -1,0 +1,48 @@
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/spb?serverTimezone=UTC&useUnicode=true@characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    password:
+    timeout: 10s
+#    lettuce:
+#      pool:
+#        # ???????????
+#        min-idle: 0
+#        # ???????????
+#        max-idle: 8
+#        # ????????????
+#        max-active: 8
+#        # #???????????????????????
+#        max-wait: -1ms
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    producer:
+      acks: 1
+      retries: 3 # 失败重试次数
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: default-group # 消费组
+      enable-auto-commit: false
+      # auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+    listener:
+      ack-mode: MANUAL_IMMEDIATE
+
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.demo.entity
+
+

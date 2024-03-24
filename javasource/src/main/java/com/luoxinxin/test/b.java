@@ -11,10 +11,7 @@ public class b {
     int trackSum = 0;
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
-
         b b = new b();
-
         while(sc.hasNext()){
             int n = sc.nextInt();
             int[] nums = new int[n];

@@ -98,6 +98,12 @@ public class BillStream implements Serializable {
     private String billType;
 
     /**
+     * 是否忽略统计 0-不忽略 1-忽略
+     */
+    private Integer ignoreStatus;
+
+
+    /**
      * 用户id
      */
     private Long userId;

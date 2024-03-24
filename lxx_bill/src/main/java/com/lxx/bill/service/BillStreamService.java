@@ -1,5 +1,8 @@
 package com.lxx.bill.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lxx.bill.bean.vo.BillStreamReqVO;
+import com.lxx.bill.bean.vo.BillStreamRespVO;
 import com.lxx.bill.domain.BillStream;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -10,4 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface BillStreamService extends IService<BillStream> {
 
+    Page<BillStreamRespVO> listBillStream(BillStreamReqVO reqVO);
+
+    boolean updateBillType(BillStreamReqVO reqVO);
 }

@@ -4,7 +4,6 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import com.lxx.bill.bean.excel.PuFaBillStreamUploadData;
-import com.lxx.bill.bean.excel.WechatBillStreamUploadData;
 import com.lxx.bill.constant.DictTypeConstants;
 import com.lxx.bill.domain.BillStream;
 import com.lxx.bill.service.BillStreamService;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,7 +33,7 @@ public class PuFaUploadDAO {
             BillStream billStream = new BillStream();
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
             billStream.setTradeTime(Date.from(LocalDateTime.parse(v.getTradeTime()+timeHandle(v.getTradeTime1()), dateTimeFormatter).atZone(ZoneId.systemDefault()).toInstant()));
-            billStream.setTradeType(commonDictTypeService.commonDictType(DictTypeConstants.DICT_TYPE_TRADE_TYPE,v.getTradeType(),null));
+            billStream.setTradeType(commonDictTypeService.insertCommonDictType(DictTypeConstants.DICT_TYPE_TRADE_TYPE,v.getTradeType(), DictTypeConstants.DICT_TYPE_DICT_FROM_4, null));
             billStream.setTradeObject(v.getTradeObject());
             billStream.setObjectNo(v.getObjectNo());
             billStream.setTotalAmount(NumberUtil.toBigDecimal(totalAmountHandle(v.getTotalAmount())));
@@ -45,7 +43,7 @@ public class PuFaUploadDAO {
             billStream.setTradeNo(IdUtil.fastSimpleUUID());
             billStream.setNote(v.getNote());
             billStream.setStreamSource(commonDictTypeService.getStreamSource("浦发银行"));
-            billStream.setUserId(1000L);
+            billStream.setUserId(0L);
             billStream.setCreateTime(new Date());
             billStream.setUpdateTime(new Date());
             return billStream;
@@ -72,13 +70,13 @@ public class PuFaUploadDAO {
 
 
     public String inExTypeHandle(String totalAmount) {
-        String type = "";
+        String typeName = "";
         if (totalAmount.startsWith("-")) {
-            type = commonDictTypeService.getINEXType("支出");
+            typeName = DictTypeConstants.DICT_TYPE_IN_EX_TYPE_2;
         }else{
-            type = commonDictTypeService.getINEXType("收入");
+            typeName = DictTypeConstants.DICT_TYPE_IN_EX_TYPE_1;
         }
-        return type;
+        return commonDictTypeService.getDictTypeCodeByName(DictTypeConstants.DICT_TYPE_IN_EX_TYPE, typeName, null);
     }
 
 }
