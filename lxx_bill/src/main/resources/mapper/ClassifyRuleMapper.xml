@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxx.bill.mapper.ClassifyRuleMapper">
+
+    <resultMap id="BaseResultMap" type="com.lxx.bill.domain.ClassifyRule">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="ruleTradeCode" column="rule_trade_code" jdbcType="VARCHAR"/>
+            <result property="ruleTradeType" column="rule_trade_type" jdbcType="VARCHAR"/>
+            <result property="ruleClassifyName" column="rule_classify_name" jdbcType="VARCHAR"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="status" column="status" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,rule_trade_code,rule_trade_type,
+        rule_classify_name,user_id,status,
+        create_time,update_time
+    </sql>
+</mapper>

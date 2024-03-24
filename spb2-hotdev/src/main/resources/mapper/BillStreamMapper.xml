@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxx.bill.mapper.BillStreamMapper">
+
+    <resultMap id="BaseResultMap" type="com.lxx.bill.domain.BillStream">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="tradeTime" column="trade_time" jdbcType="TIMESTAMP"/>
+            <result property="tradeType" column="trade_type" jdbcType="BIGINT"/>
+            <result property="tradeObject" column="trade_object" jdbcType="VARCHAR"/>
+            <result property="objectNo" column="object_no" jdbcType="VARCHAR"/>
+            <result property="goodsDescription" column="goods_description" jdbcType="VARCHAR"/>
+            <result property="totalAmount" column="total_amount" jdbcType="DECIMAL"/>
+            <result property="inExType" column="in_ex_type" jdbcType="BIGINT"/>
+            <result property="inExWay" column="in_ex_way" jdbcType="BIGINT"/>
+            <result property="tradeStatus" column="trade_status" jdbcType="BIGINT"/>
+            <result property="tradeNo" column="trade_no" jdbcType="VARCHAR"/>
+            <result property="merchantOrderNo" column="merchant_order_no" jdbcType="VARCHAR"/>
+            <result property="note" column="note" jdbcType="VARCHAR"/>
+            <result property="streamSource" column="stream_source" jdbcType="BIGINT"/>
+            <result property="billType" column="bill_type" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,trade_time,trade_type,
+        trade_object,object_no,goods_description,
+        total_amount,in_ex_type,in_ex_way,
+        trade_status,trade_no,merchant_order_no,
+        note,stream_source,bill_type,
+        create_time,update_time
+    </sql>
+</mapper>
