@@ -39,6 +39,11 @@ spring:
     listener:
       ack-mode: MANUAL_IMMEDIATE
 
+  elasticsearch:
+    rest:
+      uris: https://localhost:9200
+
+
 
 
 mybatis:
