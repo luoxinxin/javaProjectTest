@@ -19,6 +19,23 @@ docker run -d \
     -p 9300:9300 \
 elasticsearch:7.12.1
 
+#验证
+http://localhost:9200/
+
+docker run -d \
+--name kibana \
+-e ELASTICSEARCH_HOSTS=http://es:9200 \
+--network=es-net \
+-p 5601:5601  \
+kibana:7.12.1
+
+#kibana启动日志
+docker logs -f kibana
+
+
+#访问网址
+http://localhost:5601/app/home#/
+
 docker exec -it es bash
 
 cd /usr/share/elasticsearch/bin
