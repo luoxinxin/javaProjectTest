@@ -19,34 +19,10 @@ public class BeanTest implements BeanPostProcessor {
     @Nullable
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         if (AopUtils.isAopProxy(bean)) {
-//        if (AopUtils.isCglibProxy(bean)) {
-//            System.out.println(++k+"有代理");
-//            Class<?> targetClass = AopUtils.getTargetClass(bean);
-//
-//            Method[] methods = targetClass.getMethods();
-//            for (int i = 0; i < methods.length; i++) {
-//                if (methods[i].getName().equals("hello")) {
-//                    System.out.println("laile");
-//                    try {
-////                        methods[i].getParameters()[];
-//                        System.out.println(methods[i].invoke(bean));
-//                    } catch (IllegalAccessException e) {
-//                        throw new RuntimeException(e);
-//                    } catch (InvocationTargetException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                }
-//
-//            }
-
-        }else{
-            System.out.println(++j+"没有代理");
+            return bean;
         }
         return bean;
     }
 
-    public static void main(String[] args) {
-
-    }
 
 }

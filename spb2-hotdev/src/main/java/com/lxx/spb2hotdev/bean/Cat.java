@@ -1,5 +1,7 @@
 package com.lxx.spb2hotdev.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.lxx.spb2hotdev.annotation.DecryptField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,10 +19,12 @@ public class Cat {
     /**
      * 名字
      */
+    @DecryptField
     private String name;
     /**
      * 年龄
      */
+    @JsonFormat
     private Integer age;
 
     @DecimalMin(value = "0.00", inclusive = false, message = "价格不能小于0")

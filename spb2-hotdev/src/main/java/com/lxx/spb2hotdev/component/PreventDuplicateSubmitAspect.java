@@ -41,16 +41,10 @@ public class PreventDuplicateSubmitAspect {
     long renewInterval = 10; // 续约间隔，单位：秒
 
     @Pointcut("@annotation(preventDuplicateSubmit)")
-    public void preventDuplicateSubmitPointcut(PreventDuplicateSubmit preventDuplicateSubmit) {
-    }
+    public void preventDuplicateSubmitPointcut(PreventDuplicateSubmit preventDuplicateSubmit) {}
+
 
     @Around("preventDuplicateSubmitPointcut(preventDuplicateSubmit)")
-    public Object preventDuplicateSubmit(ProceedingJoinPoint joinPoint, PreventDuplicateSubmit preventDuplicateSubmit) throws Throwable {
-
-        System.out.println("自定义注解");
-        return null;
-
-    }
     public Object preventDuplicateSubmit1(ProceedingJoinPoint joinPoint, PreventDuplicateSubmit preventDuplicateSubmit) throws Throwable {
         String methodName = joinPoint.getSignature().getName();
         //todo 定义key的取值逻辑 可以是token 也可以是入参里的某个值
@@ -62,23 +56,24 @@ public class PreventDuplicateSubmitAspect {
         Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
         String parse = parse(value, method, args);
         System.out.println("自定义注解");
+        key = joinPoint.getTarget().getClass().getSimpleName().concat(":").concat(methodName).concat(":").concat(parse);
 
         if (redisTemplate.opsForValue().setIfAbsent(key, "lock", lockTimeout, TimeUnit.SECONDS)) {
             try {
 //                // 获取锁成功，执行业务逻辑
-//                return joinPoint.proceed();
-                // 定时任务，定期续约锁
-                ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-                executorService.scheduleAtFixedRate(() -> {
-                    // 续约锁，延长锁的过期时间
-                    redisTemplate.expire(key, lockTimeout, TimeUnit.SECONDS);
-                }, renewInterval, renewInterval, TimeUnit.SECONDS);
+                return joinPoint.proceed();
+//                // 定时任务，定期续约锁
+//                ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+//                executorService.scheduleAtFixedRate(() -> {
+//                    // 续约锁，延长锁的过期时间
+//                    redisTemplate.expire(key, lockTimeout, TimeUnit.SECONDS);
+//                }, renewInterval, renewInterval, TimeUnit.SECONDS);
                 // 业务逻辑执行完毕，等待定时任务续约锁
-                Object result = joinPoint.proceed();
-                executorService.shutdown();
-                executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
+//                Object result = joinPoint.proceed();
+//                executorService.shutdown();
+//                executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
 
-                return result;
+//                return result;
             } finally {
                 // 释放锁
                 redisTemplate.delete(key);

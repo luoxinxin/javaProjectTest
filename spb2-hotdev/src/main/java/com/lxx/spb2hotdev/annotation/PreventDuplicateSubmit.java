@@ -11,5 +11,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PreventDuplicateSubmit {
-    String value() default ""; // 用于区分不同的操作
+    String value() default ""; // 用于区分不同的操作 #id
 }

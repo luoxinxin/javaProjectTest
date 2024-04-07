@@ -8,11 +8,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class UtilTest {
 
     @Autowired
-    RedissonTest redissonTest;
+    RedissonLock redissonLock;
 
     @Test
     void BeanClassUtil1() {
-        redissonTest.doSomething();
+        redissonLock.doSomething();
     }
 
 }

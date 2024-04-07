@@ -6,9 +6,10 @@ import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/*redisson分布式锁*/
 @Component
 @Slf4j
-public class RedissonTest {
+public class RedissonLock {
 
     @Autowired
     private RedissonClient redissonClient;

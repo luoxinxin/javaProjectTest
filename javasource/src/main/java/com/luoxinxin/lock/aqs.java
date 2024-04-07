@@ -7,9 +7,9 @@ import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
 public class aqs {
     public static void main(String[] args) {
-//        AbstractQueuedSynchronizer aqs = new AbstractQueuedSynchronizer();
-//        DateFormat;
-//        Calendar;
-//        DriverManager.getConnection()
+        AbstractQueuedSynchronizer aqs;
+        DateFormat df;
+        Calendar calendar;
+//        DriverManager.getConnection();
     }
 }

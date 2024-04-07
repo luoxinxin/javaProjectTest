@@ -44,9 +44,10 @@ public class TestController {
     @Autowired
     private HelloService helloService;
 
-    @PreventDuplicateSubmit()
+//    @PreventDuplicateSubmit()
     @PostMapping("/test")
     public String hello(@Valid @RequestBody Cat cat){
+        System.out.println(cat.getName());
         return "1";
     }
 
