@@ -14,17 +14,17 @@ import org.springframework.core.io.FileSystemResource;
 
 public class test1 {
     public static void main(String[] args) {
-        InitializingBean;
-        DisposableBean;
-                BeanFactory beanFactory = new BeanFactory();
+//        InitializingBean;
+//        DisposableBean;
+//                BeanFactory beanFactory = new BeanFactory();
                 FileSystemResource resource = new FileSystemResource("D:\\test.txt");
-        ClassPathResource;
-        ApplicationContext;
-        ApplicationEvent;
-        ApplicationListener;
-        BeanDefinition;
-        RootBeanDefinition;
-        BeanDefinitionReader;
+//        ClassPathResource;
+//        ApplicationContext;
+//        ApplicationEvent;
+//        ApplicationListener;
+//        BeanDefinition;
+//        RootBeanDefinition;
+//        BeanDefinitionReader;
 
     }
 }

@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  redis1:
+    image: redis:latest
+    command: redis-server --port 7010 --cluster-enabled yes --cluster-config-file nodes.conf --cluster-node-timeout 5000 --appendonly yes
+    ports:
+      - "7010:7010"
+    volumes:
+      - ./redis1:/data
+
+  redis2:
+    image: redis:latest
+    command: redis-server --port 7011 --cluster-enabled yes --cluster-config-file nodes.conf --cluster-node-timeout 5000 --appendonly yes
+    ports:
+      - "7011:7011"
+    volumes:
+      - ./redis2:/data
+
+  redis3:
+    image: redis:latest
+    command: redis-server --port 7012 --cluster-enabled yes --cluster-config-file nodes.conf --cluster-node-timeout 5000 --appendonly yes
+    ports:
+      - "7012:7012"
+    volumes:
+      - ./redis3:/data
