@@ -1,19 +1,16 @@
 package org.example;
 
-import com.baomidou.mybatisplus.annotation.DbType;
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
-import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 import java.util.Collections;
 
-public class gen {
+public class PostgresqlGen {
 
     public static void main(String[] args) {
-        Generation("jc-club", "auth_user");
+        Generation("postgresql", "test");
     }
 
     /**
@@ -22,7 +19,7 @@ public class gen {
      * @param tableName 表名
      */
     public static void Generation(String databaseName,String... tableName){
-        FastAutoGenerator.create("jdbc:mysql://localhost:3306/"+databaseName+"?&useSSL=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai","root","Vae970109vae")
+        FastAutoGenerator.create("jdbc:postgresql://localhost:5432/postgresql", "postgresql", "123456")
                 .globalConfig(builder -> {
                     builder.author("lxx")
                             //启用swagger

@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  gaussdb:
+    image: enmotech/opengauss:latest
+    container_name: gaussdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - /usr/local/opengauss/etc/gscgroup_omm.cfg:/Users/xinsilinwang/IdeaProjects/javaProjectTest/someshell/mac/imac/gaussdb/gscgroup_omm.cfg
+    environment:
+      - GAUSSDB_INIT_PASSWORD=123456
+      - POSTGRES_USER=gaussdb
+      - POSTGRES_DB=gaussdb
+    restart: always

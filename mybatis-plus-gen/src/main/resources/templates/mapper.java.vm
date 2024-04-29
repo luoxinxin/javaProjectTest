@@ -24,11 +24,21 @@ public interface ${table.mapperName} {
 
     int insert(${entity} entity);
 
-    int deleteById(Integer id);
+    #foreach($field in ${table.fields})
+        #if(${field.keyFlag})##生成主键排在第一位
+        <id column="${field.name}" property="${field.propertyName}" />
+        #end
+    #end
 
-    int updateById(${entity} entity);
+    #foreach($field in ${table.fields})
+    #if(${field.keyIdentityFlag})##生成主键排在第一位
+    int deleteBy${field.capitalName}(${field.propertyType} ${field.propertyName});
 
-    ${entity} selectById(Integer id);
+    int updateBy${field.capitalName}(${entity} entity);
+
+    ${entity} selectById(${field.propertyType} ${field.propertyName});
+    #end
+    #end
 
     List<${entity}> selectByEntity(${entity} entity);
 

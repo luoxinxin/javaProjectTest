@@ -27,110 +27,52 @@
 
 #end
 #if(${baseColumnList})
-    <!-- 通用查询结果列 -->
+    <!-- 通用查询结果列23 -->
     <sql id="Base_Column_List">
 #foreach($field in ${table.commonFields})
         ${field.columnName},
 #end
         ${table.fieldNames}
     </sql>
-
 #end
 
-    <select id="selectById" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from ${table.name}
-        where ${keyPropertyName} = #{id}
-
-
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from auth_role
-        where id = #{id,jdbcType=BIGINT}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from auth_role
-        where id = #{id,jdbcType=BIGINT}
-    </delete>
-
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="generate.AuthRole" useGeneratedKeys="true">
-        insert into auth_role
+    <!-- 通用插入条件列 -->
+    <sql id="Insert_Column_List">
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="roleName != null">
-                role_name,
-            </if>
-            <if test="roleKey != null">
-                role_key,
-            </if>
-            <if test="createdBy != null">
-                created_by,
-            </if>
-            <if test="createdTime != null">
-                created_time,
-            </if>
-            <if test="updateBy != null">
-                update_by,
-            </if>
-            <if test="updateTime != null">
-                update_time,
-            </if>
-            <if test="isDeleted != null">
-                is_deleted,
-            </if>
+            #foreach($field in ${table.fields})
+                <if test="${field.propertyName} != null">
+                    ${field.columnName},
+                </if>
+            #end
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="roleName != null">
-                #{roleName,jdbcType=VARCHAR},
+        #foreach($field in ${table.fields})
+            <if test="${field.propertyName} != null">
+                #{${field.propertyName}},
             </if>
-            <if test="roleKey != null">
-                #{roleKey,jdbcType=VARCHAR},
-            </if>
-            <if test="createdBy != null">
-                #{createdBy,jdbcType=VARCHAR},
-            </if>
-            <if test="createdTime != null">
-                #{createdTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updateBy != null">
-                #{updateBy,jdbcType=VARCHAR},
-            </if>
-            <if test="updateTime != null">
-                #{updateTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="isDeleted != null">
-                #{isDeleted,jdbcType=INTEGER},
-            </if>
+        #end
         </trim>
-    </insert>
+    </sql>
 
-    <update id="updateByPrimaryKeySelective" parameterType="generate.AuthRole">
-        update auth_role
+    <!-- 通用修改字段 -->
+    <sql id="Update_Column_List">
         <set>
-            <if test="roleName != null">
-                role_name = #{roleName,jdbcType=VARCHAR},
+    #foreach($field in ${table.fields})
+            <if test="${field.propertyName} != null">
+                ${field.columnName} = #{${field.propertyName}},
             </if>
-            <if test="roleKey != null">
-                role_key = #{roleKey,jdbcType=VARCHAR},
-            </if>
-            <if test="createdBy != null">
-                created_by = #{createdBy,jdbcType=VARCHAR},
-            </if>
-            <if test="createdTime != null">
-                created_time = #{createdTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updateBy != null">
-                update_by = #{updateBy,jdbcType=VARCHAR},
-            </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="isDeleted != null">
-                is_deleted = #{isDeleted,jdbcType=INTEGER},
-            </if>
+    #end
         </set>
-        where id = #{id,jdbcType=BIGINT}
-    </update>
+    </sql>
+
+    <!-- 通用查询条件 -->
+    <sql id="Select_Column_List">
+    #foreach($field in ${table.fields})
+        <if test="${field.propertyName} != null and ${field.propertyName} != ''">
+            and ${field.columnName} = #{${field.propertyName}}
+        </if>
+    #end
+    </sql>
+
 
 </mapper>
