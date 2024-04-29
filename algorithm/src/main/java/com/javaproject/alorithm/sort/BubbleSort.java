@@ -1,5 +1,9 @@
 package com.javaproject.alorithm.sort;
 
+
+/**
+ * 冒泡排序
+ */
 public class BubbleSort {
 
     //找出最大的放到最后
@@ -16,6 +20,29 @@ public class BubbleSort {
         }
         return in;
     }
+
+    //每次比较找出最大的一个数放到最后
+    public int[] fun2(int[] in) {
+        int tmp;
+        boolean order = true;
+        for(int i = in.length; i>1; i--){//比较数的个数
+            for(int j = 0; j<i-1; j++){
+                if(in[j]>in[j+1]){
+                    order = false;
+                    tmp = in[j];
+                    in[j] = in[j+1];
+                    in[j+1] = tmp;
+                }
+            }
+            if(!order){
+                order = true;
+            }else{
+                break;
+            }
+        }
+        return in;
+    }
+
 
     public int[] fun1(int[] in) {
         int tmp;

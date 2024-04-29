@@ -26,7 +26,8 @@ public class QuickSort {
         }*/
         int[] nums = {4,3,7,9,3,0};
         int n = nums.length;
-        quickSort(nums, 0, n - 1);
+//        quickSort(nums, 0, n - 1);
+        quickSort2(nums, 0, n - 1);
         for (int i = 0; i < n; ++i) {
             System.out.printf("%d ", nums[i]);
         }
@@ -57,6 +58,26 @@ public class QuickSort {
         quickSort(nums, left, j);
         quickSort(nums, j + 1, right);
     }
+
+    public static void quickSort2(int[] nums, int left, int right){
+        if(left<right){
+            int i = left -1;
+            int j = right + 1;
+            int mid = nums[left];
+            while(i<j){
+                while(nums[++i]<mid);
+                while(nums[--j]>mid);
+                if(i<j){
+                    int t = nums[i];
+                    nums[i] = nums[j];
+                    nums[j] = t;
+                }
+            }
+            quickSort2(nums, left, j);
+            quickSort2(nums, j + 1, right);
+        }
+    }
+
 
     public static void quickSort1(int[] nums, int left, int right) {
         if (left >= right) {

@@ -1,0 +1,10 @@
+#mysql配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: wsndqd857857
+    username: root
+    url: jdbc:mysql://localhost:3306/votedb?&useSSL=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+
+server:
+  port: 8086

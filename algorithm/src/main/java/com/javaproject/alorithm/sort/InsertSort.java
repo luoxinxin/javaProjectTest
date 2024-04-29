@@ -1,5 +1,8 @@
 package com.javaproject.alorithm.sort;
 
+/**
+ * 插入排序
+ */
 public class InsertSort {
 
     public int[] fun(int[] in){
@@ -23,6 +26,23 @@ public class InsertSort {
         int tmp;
         int k;
         for(int i = 1; i<in.length;i++){
+            tmp = in[i];
+            k = i;
+            while(k-1>=0 && tmp<in[k-1]){
+                in[k] = in[k-1];
+                k--;
+            }
+            if(k != i){
+                in[k] = tmp;
+            }
+        }
+        return in;
+    }
+
+    public int[] fun2(int[] in){
+        int tmp;
+        int k;
+        for(int i = 1; i<in.length; i++){
             tmp = in[i];
             k = i;
             while(k-1>=0 && tmp<in[k-1]){

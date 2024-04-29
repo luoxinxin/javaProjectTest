@@ -20,6 +20,23 @@ public class SelectionSort {
         return in;
     }
 
+    public int[] funV1(int[] in){
+        for(int i = in.length-1; i>=0; i--){//比较的次数
+            int max = i;
+            for(int j = 0; j<i; j++){
+                if(in[j]>in[max]){
+                    max = j;
+                }
+            }
+            if(max != i){
+                int tmp = in[max];
+                in[max] = in[i];
+                in[i] = tmp;
+            }
+        }
+        return in;
+    }
+
     public int[] fun1(int[] in){
         for (int i = in.length -1; i >=0 ; i--) {//假定最后一个元素i最大，找到最大的元素max放到i的位置
             int max = i;
