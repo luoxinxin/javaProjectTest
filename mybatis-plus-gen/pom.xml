@@ -58,4 +58,34 @@
 
     </dependencies>
 
+    <build>
+        <plugins>
+            <!-- 添加 MyBatis Generator 插件 -->
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.4.2</version>
+                <configuration>
+                    <!-- 指定配置文件 -->
+                    <configurationFile>src/main/resources/mybatis-generator-config.xml</configurationFile>
+                    <!-- 允许覆盖生成的文件 -->
+                    <overwrite>true</overwrite>
+                </configuration>
+                <dependencies>
+                    <!-- 添加 MyBatis Generator 插件的依赖 -->
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>42.2.19</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>8.0.33</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
