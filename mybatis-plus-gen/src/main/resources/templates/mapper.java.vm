@@ -5,6 +5,7 @@ import ${superMapperClassPackage};
 #if(${mapperAnnotation})
 import org.apache.ibatis.annotations.Mapper;
 #end
+import java.util.List;
 
 /**
  * <p>
@@ -25,18 +26,12 @@ public interface ${table.mapperName} {
     int insert(${entity} entity);
 
     #foreach($field in ${table.fields})
-        #if(${field.keyFlag})##生成主键排在第一位
-        <id column="${field.name}" property="${field.propertyName}" />
-        #end
-    #end
-
-    #foreach($field in ${table.fields})
-    #if(${field.keyIdentityFlag})##生成主键排在第一位
+    #if(${field.columnName}==${primaryKey})
     int deleteBy${field.capitalName}(${field.propertyType} ${field.propertyName});
 
     int updateBy${field.capitalName}(${entity} entity);
 
-    ${entity} selectById(${field.propertyType} ${field.propertyName});
+    ${entity} selectBy${field.capitalName}(${field.propertyType} ${field.propertyName});
     #end
     #end
 

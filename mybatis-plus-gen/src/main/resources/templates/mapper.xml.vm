@@ -48,7 +48,7 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
         #foreach($field in ${table.fields})
             <if test="${field.propertyName} != null">
-                #{${field.propertyName}},
+                #{${field.propertyName}, jdbcType=${field.metaInfo.jdbcType}},
             </if>
         #end
         </trim>
@@ -59,7 +59,7 @@
         <set>
     #foreach($field in ${table.fields})
             <if test="${field.propertyName} != null">
-                ${field.columnName} = #{${field.propertyName}},
+                ${field.columnName} = #{${field.propertyName}, jdbcType=${field.metaInfo.jdbcType}},
             </if>
     #end
         </set>
@@ -69,10 +69,44 @@
     <sql id="Select_Column_List">
     #foreach($field in ${table.fields})
         <if test="${field.propertyName} != null and ${field.propertyName} != ''">
-            and ${field.columnName} = #{${field.propertyName}}
+            and ${field.columnName} = #{${field.propertyName}, jdbcType=${field.metaInfo.jdbcType}}
         </if>
     #end
     </sql>
 
+#foreach($field in ${table.fields})
+    #if(${field.columnName}==${primaryKey})
+    <select id="selectBy${field.capitalName}" parameterType="${field.propertyType}" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ${table.name}
+        where ${field.columnName} = #{${field.propertyName},jdbcType=${field.metaInfo.jdbcType}}
+    </select>
+
+    <delete id="deleteBy${field.capitalName}" parameterType="${field.propertyType}">
+        delete from ${table.name} where ${field.columnName} = #{${field.propertyName}}
+    </delete>
+
+    <update id="updateBy${field.capitalName}" parameterType="${package.Entity}.${entity}">
+        update ${table.name}
+        <include refid="Update_Column_List" />
+        where ${field.columnName} = #{${field.propertyName}, jdbcType=${field.metaInfo.jdbcType}}
+    </update>
+#end
+#end
+
+    <insert id="insert" parameterType="${package.Entity}.${entity}">
+        insert into ${table.name}
+        <include refid="Insert_Column_List" />
+    </insert>
+
+    <select id="selectBy${field.capitalName}" parameterType="${package.Entity}.${entity}" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ${table.name}
+        <where>
+            <include refid="Select_Column_List" />
+        </where>
+    </select>
 
 </mapper>

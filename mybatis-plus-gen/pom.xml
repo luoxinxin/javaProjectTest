@@ -55,6 +55,25 @@
             <version>1.18.30</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>22.0.0</version> <!-- 替换为最新版本 -->
+            <scope>provided</scope> <!-- 或者使用其他合适的 scope -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>6.1.5</version>
+            <scope>compile</scope>
+        </dependency>
+
 
     </dependencies>
 
@@ -82,6 +101,12 @@
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>
                         <version>8.0.33</version>
+                    </dependency>
+                    <!-- https://mvnrepository.com/artifact/com.itfsw/mybatis-generator-plugin -->
+                    <dependency>
+                        <groupId>com.itfsw</groupId>
+                        <artifactId>mybatis-generator-plugin</artifactId>
+                        <version>1.4.6</version>
                     </dependency>
                 </dependencies>
             </plugin>
