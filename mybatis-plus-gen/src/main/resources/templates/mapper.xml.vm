@@ -100,7 +100,7 @@
         <include refid="Insert_Column_List" />
     </insert>
 
-    <select id="selectBy${field.capitalName}" parameterType="${package.Entity}.${entity}" resultMap="BaseResultMap">
+    <select id="selectByEntity" parameterType="${package.Entity}.${entity}" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from ${table.name}

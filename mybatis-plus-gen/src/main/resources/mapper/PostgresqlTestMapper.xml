@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ltx.mpcode.dao.PostgresqlTestMapper">
+<mapper namespace="lxx.dao.PostgresqlTestMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ltx.mpcode.entity.PostgresqlTest">
+    <resultMap id="BaseResultMap" type="lxx.entity.PostgresqlTest">
         <id column="id" property="id" />
         <id column="name" property="name" />
     </resultMap>
@@ -66,18 +66,18 @@
         delete from postgresql_test where id = #{id}
     </delete>
 
-    <update id="updateById" parameterType="com.ltx.mpcode.entity.PostgresqlTest">
+    <update id="updateById" parameterType="lxx.entity.PostgresqlTest">
         update postgresql_test
         <include refid="Update_Column_List" />
         where id = #{id, jdbcType=INTEGER}
     </update>
 
-    <insert id="insert" parameterType="com.ltx.mpcode.entity.PostgresqlTest">
+    <insert id="insert" parameterType="lxx.entity.PostgresqlTest">
         insert into postgresql_test
         <include refid="Insert_Column_List" />
     </insert>
 
-    <select id="selectBy${field.capitalName}" parameterType="com.ltx.mpcode.entity.PostgresqlTest" resultMap="BaseResultMap">
+    <select id="selectByEntity" parameterType="lxx.entity.PostgresqlTest" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from postgresql_test
