@@ -1,4 +1,4 @@
-package com.lxx.designpattern.factory.simple;
+package com.lxx.designpattern.factory.simple.example1;
 
 /**
  * 计算器抽象类

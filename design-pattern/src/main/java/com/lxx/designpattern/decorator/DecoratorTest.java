@@ -2,8 +2,22 @@ package com.lxx.designpattern.decorator;
 
 // 银行账户接口
 interface BankAccount {
+    /**
+     * 存款
+     * @param amount
+     */
     void deposit(double amount);
+
+    /**
+     * 取款
+     * @param amount
+     */
     void withdraw(double amount);
+
+    /**
+     * 余额
+     * @return
+     */
     double getBalance();
 }
 
@@ -28,7 +42,13 @@ class BasicAccount implements BankAccount {
     }
 }
 
-// 利息装饰器类
+/**
+ * 装饰器的核心是 装饰 扩展原始类的功能
+ *
+ * 装饰者模式的主要目的是动态地为对象添加或删除功能，而不改变其接口。它关注的是对象功能的扩展和组合。
+ *
+ * 利息装饰器类
+ */
 class InterestDecorator implements BankAccount {
     private BankAccount account;
     private double interestRate;

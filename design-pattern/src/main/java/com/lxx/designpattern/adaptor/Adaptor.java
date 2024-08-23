@@ -1,5 +1,6 @@
 package com.lxx.designpattern.adaptor;
 
+
 // 支付接口
 interface Payment {
     void pay(double amount);
@@ -19,6 +20,16 @@ class WechatPay {
     }
 }
 
+
+/**
+ * 适配器的核心是 适配 适配当前所需的实现的场景
+ *
+ * 通过组合的方式实现适配器模式
+ *
+ * 适配器模式的主要目的是将一个不兼容的接口转换为另一个兼容的接口，使得原本不兼容的类可以一起工作。它关注的是接口的转换
+ *
+ * 在这里 微信支付是一个不兼容的支付， 需要转换成现在需要的实现方式（实现了Payment接口的）
+ */
 // 微信支付适配器
 class WechatPayAdapter implements Payment {
     private WechatPay wechatPay;
@@ -46,6 +57,7 @@ class PaymentSelector {
 }
 
 // 示例
+// 支付方式强制要求实现了 Payment接口
 public class Adaptor {
     public static void main(String[] args) {
         PaymentSelector paymentSelector = new PaymentSelector();

@@ -10,6 +10,8 @@ import java.lang.reflect.Proxy;
 
 /**
  * jdk实现动态代理
+ *
+ * 代理模式的主要目的是控制对原始对象的访问，提供额外的功能或逻辑，例如延迟加载、权限控制、远程代理等。它关注的是对对象的访问控制。
  */
 public class DynamicProxy {
 
